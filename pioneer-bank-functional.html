@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+      <title>Pioneer Bank - Login Page</title>
+
+      <link
+         rel="stylesheet"
+         href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+         type="text/css"
+         media="all"
+      />
+
+      <style type="text/css" media="all">
+         body {
+            padding: 100px;
+         }
+         .submit-area {
+            border-radius: 10px;
+            box-shadow: 5px 5px 10px;
+            padding: 40px;
+            margin: 10px 5px;
+         }
+         #transection-area {
+            display: none;
+         }
+
+         #deposit-monitor {
+            background: slateblue;
+         }
+         #withdraw-monitor {
+            background: lightsalmon;
+         }
+         #balance-monitor {
+            background: orange;
+         }
+         .box {
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px 5px;
+         }
+      </style>
+   </head>
+
+   <body class="container">
+      <section id="login-area">
+         <h1 class="text-center">Welcome to Pioneer Bank</h1>
+         <div class="submit-area">
+            <h4>Login</h4>
+            <input
+               class="form-control"
+               type="email"
+               name="user-email"
+               id="user-email"
+               value=""
+               placeholder="Email"
+            />
+            <br />
+            <input
+               class="form-control"
+               type="password"
+               name="user-password"
+               id="user-password"
+               value=""
+               placeholder="Password"
+            />
+            <br />
+            <button class="btn btn-success" type="submit" id="enter-button">
+               Enter
+            </button>
+         </div>
+      </section>
+
+      <section id="transection-area">
+         <div id="monitor-area" class="row">
+            <div class="col-md-4">
+               <div id="deposit-monitor" class="box">
+                  <h5>Deposit</h5>
+                  <h1>$<span id="deposit-monitor-amount">00</span></h1>
+               </div>
+            </div>
+            <div class="col-md-4">
+               <div id="withdraw-monitor" class="box">
+                  <h5>Withdraw</h5>
+                  <h1>$<span id="withdraw-monitor-amount">00</span></h1>
+               </div>
+            </div>
+            <div class="col-md-4">
+               <div id="balance-monitor" class="box">
+                  <h5>Balance</h5>
+                  <h1>$<span id="balance-monitor-amount">1500</span></h1>
+               </div>
+            </div>
+         </div>
+
+         <br />
+         <br />
+
+         <div class="row">
+            <div class="col-md-6">
+               <div class="submit-area">
+                  <h4>Deposit</h4>
+                  <input
+                     class="form-control"
+                     type="number"
+                     name="deposit"
+                     id="deposit-value"
+                     value=""
+                     placeholder="$ Amount you want to deposit"
+                  />
+                  <br />
+                  <button id="deposit-button" class="btn btn-success">
+                     Deposit
+                  </button>
+               </div>
+            </div>
+
+            <div class="col-md-6">
+               <div class="submit-area">
+                  <h4>Withdraw</h4>
+                  <input
+                     class="form-control"
+                     type="number"
+                     name="withdraw"
+                     id="withdraw-value"
+                     value=""
+                     placeholder="$ Amount you want to withdraw"
+                  />
+                  <br />
+                  <button id="withdraw-button" class="btn btn-success">
+                     Withdraw
+                  </button>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <script type="text/javascript" charset="utf-8">
+         //Enter Button Event
+         document
+            .getElementById("enter-button")
+            .addEventListener("click", function () {
+               document.getElementById("login-area").style.display = "none";
+               document.getElementById("transection-area").style.display =
+                  "block";
+            });
+            
+  function itemMonitor(itemMonitorAmount,valueNumber){
+      const current = document.getElementById(itemMonitorAmount).innerText ;
+     const currentNumber = parseFloat(current);
+     const total = currentNumber + valueNumber ; 
+      document.getElementById(itemMonitorAmount).innerText = total;
+  }
+  
+  function balanceMonitor(balanceMonitorAmount,valueNumber){
+      const currentBalance = document.getElementById(balanceMonitorAmount).innerText ;
+      const currentBalanceNumber = parseFloat(currentBalance);
+      const totalBalance = currentBalanceNumber + valueNumber ;
+      document.getElementById(balanceMonitorAmount).innerText = totalBalance;
+  }          
+
+function managingNull(value){
+   if(value == ""){
+      return 00;
+   } else {
+      return parseFloat(value);
+   }
+ }
+         //Deposit Button Event
+   document.getElementById('deposit-button').addEventListener('click', function (){
+      const value = document.getElementById("deposit-value").value ;
+       const valueNumber = managingNull(value);
+      itemMonitor("deposit-monitor-amount",valueNumber);
+      balanceMonitor("balance-monitor-amount",valueNumber);
+      document.getElementById("deposit-value").value = "";
+   });
+         //Withdraw Button Event
+   document.getElementById("withdraw-button").addEventListener('click', function (){
+      const value = document.getElementById("withdraw-value").value ;
+      const valueNumber = managingNull(value);
+      
+      itemMonitor("withdraw-monitor-amount",valueNumber);
+      balanceMonitor("balance-monitor-amount", -1 * valueNumber);
+      document.getElementById("withdraw-value").value = "" ;
+   });
+       
+      </script>
+      <script
+         src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+         type="text/javascript"
+         charset="utf-8"
+      ></script>
+   </body>
+</html>
